@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <!-- ======================= Cabecera ================== -->
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>Departamentos</title>
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+    <body>
+    <!-- ======================= Menú Lateral ================== -->
+    <div class="sidebar">
+        <div class="logo"></div>
+            <ul class="menu">
+                <li class="active">
+                        <a href="#">
+                                <img style="width:20px; height: 30px;" src="{% static '/img/favicon.png' %}">
+                            </span>
+                            <span class="title">S.U.C.I</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../admin">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../admin/departamentos">
+                            <i class="fa-solid fa-house-circle-check"></i>
+                            <span>Departamentos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../admin/sedes">
+                            <i class="fa-solid fa-building-user"></i>
+                            <span>Sedes</span>
+                        </a>
+                    </li>
+                    <li class="logout" style="bottom: 0;">
+                        <a href="{% url 'logout' %}">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="title">Salir</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- ==================== Panel Superior =================== -->
+            <div class="main--content">
+                <div class="header--wrapper">
+                    <div class="header--title">
+                        <h2>Departamentos</h2>
+                    </div>
+                    <div class="user--info">
+                        <div class="searh--box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Buscar" />
+                    </div>
+                        <img src="{% static 'img/ven911.jpg' %}">
+                        <h2 class="title">V{{request.user.username}}</h2>
+                    </div>
+                </div>
+            <!-- =========== Formulario =========  -->
+                <div align="right" style="margin-right: 100px; margin-bottom: -10px;">
+                    <button id="myBtn" class="btn">Agregar Departamento</button>
+                </div>
+                <br>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" style="margin-top: -10px;">&times;</span>
+                        <div class="modal-header">
+                            <h2>Agregar Departamento</h2>
+                        </div>
+                        <br>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                
+                                <div class="form-items">
+                                    <label>Nombre</label>
+                                    <br>
+                                    <input type="text" class="form-control" name="{{form6.name.html_name}}" placeholder="Ingrese el nombre" required>
+                                </div>
+                            </div>
+                            <br>
+                            <div align="center">
+                                <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <!-- ===================== Listar Archivos ====================  -->
+                <table>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                    {% for archivo in departamentosp %}
+                    <tr>
+                        <td>{{ archivo.name }}</td>
+                        <td>MDOFICAR</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </body>
+    <!-- =========== Scripts =========  -->
+    <script src="{% static '/js/main.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
+
+        function validatePassword(){
+            if(password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("La contraseña no coincide");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
+</html>

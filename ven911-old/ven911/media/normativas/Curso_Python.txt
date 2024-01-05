@@ -1,0 +1,47 @@
+Terminar "cmd"  Tecla Windows + R
+
+* Crear carpeta "mkdir + nombre de la nueva carpeta
+* Para validar listado usar "dir"
+* Para Acceder la carpeta "cd + nombre de carpeta"
+* Crear entorno:  "python -m venv entornoprueba"
+* Acceder "cd entorno"
+
+activar entorno: "\Users\Admin\envs\entornoprueba>Scripts\activate.bat"
+
+- Entrar en jupyter : "jupyter-notebook"
+
+Como retocer en terminar: "cd ..\"
+
+
+Crear una funcion que realizando un str te diga 
+el numero de elemento que tenga la función.
+
+
+Realizar Fibonacci en python ejercio 2
+
+----------------------------------------------------------------------
+contador = 1
+for i in = iterable
+.... print(i)
+	contador += 1
+
+Limpear codigo en terminar: cls
+
+ 
+Ejercio de tarea: Crear una funcion que imprima por 
+pantalla los proximo 30 años bisiestos.
+
+
+
+Tarea: Crear la funcion minimo comun multiplo y minimo comun divisor
+entre dos factores.
+
+
+
+Como saber la contraseña de un wifi : netsh wlan show profile name=nombre_de_la_red_wifi key=clear
+
+
+
+
+
+

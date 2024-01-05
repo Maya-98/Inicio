@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <!-- ======================= Cabecera ================== -->
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>Potencia</title>
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+    <body>
+    <!-- ======================= Menú Lateral ================== -->
+        <div class="sidebar">
+            <div class="logo"></div>
+            <ul class="menu">
+                    <li class="active">
+                        <a href="#">
+                                <img style="width:20px; height: 30px;" src="{% static 'img/favicon.png' %}">
+                            </span>
+                            <span class="title">S.U.C.I</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../potencia">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>Incidencias</span>
+                        </a>
+                    </li>
+                    <li class="logout.new">
+                        <a href="../modulos">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Volver</span>
+                        </a>
+                    </li>
+                    <li class="logout">
+                        <a href="{% url 'logout' %}">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="title"> Salir </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+<!-- ==================== Panel Superior =================== -->
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                <h2>Potencia</h2>
+            </div>
+            <div class="user--info">
+                <div class="searh--box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar" />
+            </div>
+                <img src="{% static 'img/ven911.jpg' %}">
+                <h2 class="title">V{{request.user.username}}</h2>
+            </div>
+        </div>
+<!-- ======================= Formulario ======================  -->
+        <div align="right" style="margin-right: 100px; margin-bottom: -10px;">
+            <button id="myBtn" class="btn">Agregar</button>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" style="margin-top: -10px;">&times;</span>
+                <div class="modal-header">
+                    <h2>Agregar Incidencia</h2>
+                </div>
+                <br>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="form-items">
+                            <label>Usuario</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{formpi.usuario.html_name}}" placeholder="Ingrese el usuario" required>
+                        </div>
+                        <div class="form-items">
+                            <label>Estado</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{formpi.estado.html_name}}" placeholder="Ingrese el estado" required>
+                        </div>
+                        <div class="form-items">
+                            <label>Sede</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{formpi.sede.html_name}}" placeholder="Ingrese la sede" required>
+                        </div>
+                        <div class="form-items">
+                            <label>Departamento</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{formpi.departamento.html_name}}" placeholder="Ingrese el departamento" required>
+                        </div>
+                        <div class="form-items" style="width: 100%;">
+                            <label>Tipo de Incidencia</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{formpi.tipoincidencia.html_name}}" placeholder="Ingrese el tipo de incidencia" required>
+                        </div>
+                        <div class="form-items" style="width: 100%;">
+                            <label>Observaciones</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{formpi.observaciones.html_name}}" placeholder="Ingrese las observaciones" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div align="center">
+                        <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+<!-- ===================== Listar Archivos ====================  -->
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Incidencias</h3>
+            <div class="table-container">            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Estado</th>
+                            <th>Sede</th>
+                            <th>Departamento</th>
+                            <th>Tipo de Incidencia</th>
+                            <th>Observaciones</th>
+                            <th>Acciones</th>
+                        </tr>
+                        <tbody> 
+                            {% for archivo in incidenciass %}
+                                <tr>
+                                    <td>{{ archivo.usuario }}</td>
+                                    <td>{{ archivo.estado }}</td>
+                                    <td>{{ archivo.sede }}</td>
+                                    <td>{{ archivo.departamento }}</td>
+                                    <td>{{ archivo.tipoincidencia }}</td>
+                                    <td>{{ archivo.observaciones }}</td>
+                                    <td> 
+                                        <a href="#" id="myBtnn3{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a href="#" id="myBtnn2{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-trash"></i></a>
+                                        <div id="myModall3{{ archivo.id }}" class="modal">
+                                            <div class="modal-content">
+                                                <span class="closee3{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                <div class="modal-header">
+                                                    <h2>Modificar Incidencia</h2>
+                                                </div>
+                                                <br>
+                                                <form method="POST" action="potencia/update/{{ archivo.pk }}">
+                                                    {% csrf_token %}
+                                                    <div class="form-group">
+                                                        <div class="form-items">
+                                                            <label>Usuario</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formegh.usuario.html_name }}" placeholder="Ingrese el usuario" value="{{ archivo.usuario }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Estado</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formegh.estado.html_name }}" placeholder="Ingrese el estado" value="{{ archivo.estado }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Sede</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formegh.sede.html_name }}" value="{{ archivo.sede }}" placeholder="Ingrese la sede" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Departamento</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formegh.departamento.html_name }}" value="{{ archivo.departamento }}" placeholder="Ingrese el departamento" required>
+                                                        </div>
+                                                        <div class="form-items" style="width: 100%;">
+                                                            <label>Tipo de Incidencia</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formegh.tipoincidencia.html_name }}" value="{{ archivo.tipoincidencia }}" placeholder="Ingrese el tipo de incidencia" required>
+                                                        </div>
+                                                        <div class="form-items" style="width: 100%;">
+                                                            <label>Observaciones</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formegh.observaciones.html_name }}" value="{{ archivo.observaciones }}" placeholder="Ingrese las observaciones" required>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div align="center">
+                                                        <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            var modall3{{ archivo.id }} = document.getElementById("myModall3{{ archivo.id }}");
+                                            var btnn3{{ archivo.id }} = document.getElementById("myBtnn3{{ archivo.id }}");
+                                            var spann3{{ archivo.id }} = document.getElementsByClassName("closee3{{ archivo.id }}")[0];
+                                            btnn3{{ archivo.id }}.onclick = function() {
+                                                modall3{{ archivo.id }}.style.visibility = "visible";
+                                                modall3{{ archivo.id }}.style.opacity = 1;
+                                            }
+                                        
+                                            spann3{{ archivo.id }}.onclick = function() {
+                                                modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                modall3{{ archivo.id }}.style.opacity = 0;
+                                            }
+                                        
+                                            window.onclick = function(event) {
+                                                if (event.target == modall3{{ archivo.id }}) {
+                                                    modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall3{{ archivo.id }}.style.opacity = 0;
+                                                }
+                                            }
+                                        </script>
+                                        <div id="myModall2{{ archivo.id }}" class="modal">
+                                            <div class="modal-content">
+                                                <span class="closee2{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                <div class="modal-header">
+                                                    <form action="potencia/delete/{{ archivo.id }}" method="POST">
+                                                        {% csrf_token %}
+                                                        <br>
+                                                        <div align="center">
+                                                            <h2>¿Estás seguro de eliminar este registro?</h2>
+                                                        </div>
+                                                        <br><br>
+                                                        <div align="center">
+                                                            <input type="submit" class="btn" value="Eliminar" style="width: 90px;">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            var modall2{{ archivo.id }} = document.getElementById("myModall2{{ archivo.id }}");
+                                            var btnn2{{ archivo.id }} = document.getElementById("myBtnn2{{ archivo.id }}");
+                                            var spann2{{ archivo.id }} = document.getElementsByClassName("closee2{{ archivo.id }}")[0];
+                                            btnn2{{ archivo.id }}.onclick = function() {
+                                                modall2{{ archivo.id }}.style.visibility = "visible";
+                                                modall2{{ archivo.id }}.style.opacity = 1;
+                                            }
+                    
+                                            spann2{{ archivo.id }}.onclick = function() {
+                                                modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                modall2{{ archivo.id }}.style.opacity = 0;
+                                            }
+                    
+                                            window.onclick = function(event) {
+                                                if (event.target == modall{{ archivo.id }}) {
+                                                    modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall2{{ archivo.id }}.style.opacity = 0;
+                                                }
+                                            }
+                                        </script>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </thead>
+                </table>
+            </div>
+        </div>
+<!-- =========== Scripts =========  -->
+        <script src="{% static '/js/main.js' %}"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script>
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("myBtn");
+            var span = document.getElementsByClassName("close")[0];
+            btn.onclick = function() {
+                modal.style.visibility = "visible";
+                modal.style.opacity = 1;
+            }
+
+            span.onclick = function() {
+                modal.style.visibility = "hidden";
+                modal.style.opacity = 0;
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.visibility = "hidden";
+                    modal.style.opacity = 0;
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>S.U.C.I</title>
+	    <!-- =============== Style ================ -->	
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+        <!-- =============== Favicon ================ -->	
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+
+    <body>
+     <!-- =============== Navigation ================ -->
+     <div class="sidebar">
+        <div class="logo"></div>
+            <ul class="menu">
+                <li class="active">
+                    <a href="#">
+                            <img style="width:20px; height: 30px;" src="{% static 'img/favicon.png' %}">
+                        </span>
+                        <span class="title">S.U.C.I</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../gestion">
+                        <i class="fa-solid fa-person-dress"></i>
+                    <span>Gestión Humana</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../organizacion">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    <span>Organización</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    <span>Seguridad</span>
+                    </a>
+                </li>
+                <li> 
+                    <a href="../presupuesto">
+                        <i class="fa-solid fa-money-bill"></i>
+                    <span>Presupuesto</span>
+                    </a>
+                </li>
+                {% if request.user.tipo == 'admin' %}
+                    <li> 
+                        <a href="../admin">
+                            <i class="fa-solid fa-lock"></i>
+                        <span>Admin</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="logout">
+                    <a href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    <span> Salir </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Menu de busqueda ==================== -->
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Inicio</h2>
+                </div>
+                <div class="user--info">
+                    <div class="searh--box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar" />
+                </div>
+                    <img src="{% static 'img/ven911.jpg' %}">
+                    <h2 class="title">V{{request.user.username}}</h2>
+                </div>
+            </div>
+        <!-- ========================= Cards ==================== -->
+        <div class="card--container">
+            <h3 class="main--title">Total de informes</h3>
+            <div class="card--wrapper">
+            <div class="payment--card light-green ">
+            <div class="card--header">
+            <div class="amount">
+                <span class="title">Normativas</span>
+            </div>
+            </div>
+                <span class="card-detail"> 4040</span>
+            </div>
+    
+            <div class="payment--card light-green">
+            <div class="card--header">
+            <div class="amount">
+                <span class="title">Reglamentos</span>
+            </div>
+            </div>
+                <span class="card-detail">4040</span>
+            </div>
+    
+        <div class="payment--card light-green ">
+            <div class="card--header">
+            <div class="amount">
+            <span class="title">Normativas</span>
+        </div>
+        </div>
+            <span class="card-detail">4040</span>
+        </div>
+    
+    <div class="payment--card light-green ">
+            <div class="card--header">
+            <div class="amount">
+            <span class="title">Reglamentos</span>
+        </div>
+        </div>
+            <span class="card-detail">4040</span>
+        </div>
+        </div>
+    </div>
+        <!-- =========== Tablas =========  -->
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Recientes</h3>
+            <div class="table-container">
+            <table>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Archivo</th>
+                <th>Estatus</th>
+            </tr>
+            <tbody>
+                <tr>
+                    <td>Ley del chisme</td>
+                    <td>Hola</td>
+                    <td>Angelo</td>
+                    <td>Angelo</td>
+                    <td>Angelo</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td>Ley del chisme</td>
+                    <td>Angelo</td>
+                    <td>Angelo</td>
+                    <td>Angelo</td>
+                    <td>Angelo</td>
+                </tr>
+                    </tbody>
+                    </tbody>
+                    </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- =========== Scripts =========  -->
+        <script src="{% static 'js/main.js' %}"></script>
+
+        <!-- ====== ionicons ======= -->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on the button, open the modal
+            btn.onclick = function() {
+            modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+            modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            }
+        </script>
+    </body>
+</html>

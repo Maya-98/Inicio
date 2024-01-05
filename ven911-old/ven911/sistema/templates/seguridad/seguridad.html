@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>Seguridad Integral</title>
+	 <!-- =============== Style ================ -->	
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	 <!-- =============== Favicon ================ -->	
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+</head>
+    <body>
+     <!-- =============== Navigation ================ -->
+    <div class="sidebar">
+        <div class="logo"></div>
+            <ul class="menu">
+                <li class="active">
+                    <a href="#">
+                            <img style="width:20px; height: 30px;" src="{% static 'img/favicon.png' %}">
+                        </span>
+                        <span class="title">S.U.C.I</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/">
+                       <i class="fa-solid fa-house"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/entradap">
+                        <i class="fa-solid fa-person-walking-arrow-right"></i>
+                        <span>Entrada</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../seguridad/salidap">
+                        </i><i class="fa-solid fa-reply-all"></i>                        
+                        <span>Salida</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/gestion">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span>Gestión</span>
+                    </a>
+                </li>
+                <li> 
+                    <a href="../seguridad/vehiculos">
+                        <i class="fa-solid fa-car-side"></i>
+                        <span>Vehículos</span>
+                    </a>
+                    <li class="logout.new">
+                        <a href="../modulos">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Volver</span>
+                        </a>     
+                </li>
+                <li class="logout">
+                    <a href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="title">Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- ========================= Main ==================== -->
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Inicio</h2>
+                </div>
+                <div class="user--info">
+                    <div class="searh--box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar" />
+                </div>
+                    <img src="{% static 'img/ven911.jpg' %}">
+                    <h2 class="title">V{{request.user.username}}</h2>
+                </div>
+            </div>
+<!-- ======================= Cards ================== -->
+    <div class="card--container">
+        <h3 class="main--title">Total de Entradas, Salidas e Incidentes</h3>
+        <div class="card--wrapper">
+        <div class="payment--card light-green ">
+        <div class="card--header">
+        <div class="amount">
+            <span class="title">Entradas</span>
+        </div>
+        </div>
+            <span class="card-detail"> {{ entradap.count }}</span>
+        </div>
+    <div class="payment--card light-green">
+        <div class="card--header">
+        <div class="amount">
+            <span class="title">Salidas</span>
+        </div>
+        </div>
+            <span class="card-detail">{{ salidap.count }}</span>
+        </div>
+        <div class="payment--card light-green">
+            <div class="card--header">
+            <div class="amount">
+                <span class="title">Incidentes</span>
+            </div>
+            </div>
+                <span class="card-detail">{{ gestion.count }}</span>
+            </div> 
+        <div class="payment--card light-green">
+                <div class="card--header">
+                <div class="amount">
+                    <span class="title">Vehículos</span>
+                </div>
+                </div>
+                    <span class="card-detail">{{ vehiculos.count }}</span>
+                </div> 
+            </div>
+        </div>
+<!-- ================ Order Details List ================= -->
+            <div class="tabular--wrapper">
+                <h3 class="main--title">Recientes</h3>
+                    <div class="table-container">
+                            <table>
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Estatus</th>
+                            </tr>
+                        <tbody>
+                            {% for a, b in objetos|slice:":9" %}
+                            <tr>
+                                <td>{{ a.name }} {{ a.apellido }}</td>
+                                <td>{{ a.direccion }}</td>
+                                <td>{{ a.fecha }}</td>
+                                <td>{{ a.hora }}</td>
+                                <td><span class="status actualizado">Entrada</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ b.name }} {{ b.apellido }}</td>
+                                <td>{{ b.direccion }}</td>
+                                <td>{{ b.fecha }}</td>
+                                <td>{{ b.hora }}</td>
+                                <td><span class="status actualizado">Salida</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+    <!-- =========== Scripts =========  -->
+    <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

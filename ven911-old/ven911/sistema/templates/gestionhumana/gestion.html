@@ -1,0 +1,460 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>Gestión Humana</title>
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+    <body>
+<!-- =============== Navigation ================ -->
+        <div class="sidebar">
+            <div class="logo"></div>
+            <ul class="menu">
+                <li class="active">
+                    <a href="#">
+                            <img style="width:20px; height: 30px;" src="{% static 'img/favicon.png' %}">
+                        </span>
+                        <span class="title">S.U.C.I</span>
+                    </a>
+                </li>
+                <li class="activado">
+                    <a href="../gestion" class="activadoa">
+                        <i class="fa-solid fa-person-dress"></i>
+                        </span>
+                        <span>Gestión Humana</span>
+                    </a>
+                </li>
+                <li class="logout">
+                    <a href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="title">Salir</span>
+                    </a>
+                </li>
+                <li class="logout.new">
+                    <a href="../modulos">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Volver</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+<!-- ========================= Main ==================== -->
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Gestión Humana</h2>
+                </div>
+                <div class="user--info">
+                    <div class="searh--box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar" />
+                </div>
+                    <img src="{% static 'img/ven911.jpg' %}">
+                    <h2 class="title">V{{request.user.username}}</h2>
+                </div>
+            </div>    
+<!-- ======================= Formulario ======================  -->
+            <div align="right" style="margin-right: 100px; margin-bottom: -10px;">
+                <button id="myBtn" class="btn">Agregar</button>
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" style="margin-top: -10px;">&times;</span>
+                    <div class="modal-header">
+                        <h2>Agregar Incidente</h2>
+                    </div>
+                    <br>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-items">
+                                <label>Nombre</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.name.html_name}}" placeholder="Ingrese el nombre" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Apellido</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.apellido.html_name}}" placeholder="Ingrese el apellido" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Nacionailidad</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.nacionalidad.html_name}}" placeholder="Ingrese la dirección" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Cédula</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.cedula.html_name}}" placeholder="Ingrese la cédula" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Sexo</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.sexo.html_name}}" placeholder="Ingrese el sexo" required>
+                            </div>
+                            <div class="form-items">
+                                <label>fecha_nac</label>
+                                <br>
+                                <input type="date" class="form-control" name="{{form.fecha_nac.html_name}}" placeholder="Ingrese la fecha de nacimiento" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Edad</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.edad.html_name}}" placeholder="Ingrese la edad" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Estado Civil</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.estado_civil.html_name}}" placeholder="Ingrese el estado civil" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Conyugue</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.cedula_conyugue.html_name}}" placeholder="Ingrese el nombre del conyugue" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Tipo de Sangre</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.tipo_sangre.html_name}}" placeholder="Ingrese el tipo de sangre" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Discapacitado</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.discapacitado.html_name}}" placeholder="Ingrese la discapacidad" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Talla de Camisa</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.talla_camisa.html_name}}" placeholder="Ingrese la talla de camisa" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Talla de Pantalón</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.talla_pantalon.html_name}}" placeholder="Ingrese la talla del pantalón" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Talla de Zapato</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.talla_zapato.html_name}}" placeholder="Ingrese la talla de zapato" required>
+                            </div>
+                            <div class="form-items">
+                                <label>FASMIJ</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.fasmij.html_name}}" placeholder="Ingrese el FASMIJ" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Dirección</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.direccion.html_name}}" placeholder="Ingrese la dirección" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Número de Cuenta</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.nro_cuenta.html_name}}" placeholder="Ingrese el número de cuenta" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Correo Electrónico</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.email.html_name}}" placeholder="Ingrese el correo electrónico" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Grado de Instrucción</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.grado_instruccion.html_name}}" placeholder="Ingrese el grado de instrucción" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Estudia</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.estudias.html_name}}" placeholder="Ingrese si estudia" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Comisión de Servicio</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.comision_servicio.html_name}}" placeholder="Ingrese si se encuentra en comisión de servicio" required>
+                            </div>
+                            <div class="form-items">
+                                <label>PNB</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.png.html_name}}" placeholder="Ingrese si pertenece a la PNB" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Tipo Personal</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.tipo_personal.html_name}}" placeholder="Ingrese el tipo de personal" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Cargo</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.cargo.html_name}}" placeholder="Ingrese el cargo" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Fecha Ingreso en 911</label>
+                                <br>
+                                <input type="date" class="form-control" name="{{form.fecha_ingreso_911.html_name}}" placeholder="Ingrese la fecha de ingreso al VEN911" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Fecha de Ingreso en la APN</label>
+                                <br>
+                                <input type="date" class="form-control" name="{{form.fecha_ingreso_apn.html_name}}" placeholder="Ingrese la fecha de ingreso en la APN" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Contratos</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.contratos.html_name}}" placeholder="Ingrese si posee contratos" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Departamento</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.departamento.html_name}}" placeholder="Ingrese el departamento" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Niños Menores de 12 años</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.niño_menor_12.html_name}}" placeholder="Ingrese si tiene hijos menores de 12 años" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Edades</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.edades1.html_name}}" placeholder="Ingrese las edades" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Hijos de 13 a 18 Años</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.hijos_13_18.html_name}}" placeholder="Ingrese si tiene hijos de 13 a 18 años" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Edades</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.edades2.html_name}}" placeholder="Ingrese las edades" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Niñas Menores de 12 años</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.niña_menor_12.html_name}}" placeholder="Ingrese si tiene hijas menores de 12 años" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Edades</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.edades3.html_name}}" placeholder="Ingrese las edades" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Hijos con Discapacidad</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.hijos_discapacidad.html_name}}" placeholder="Ingrese si tiene hijos con discapacidad" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Edades</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.edades4.html_name}}" placeholder="Ingrese las edades" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Sede</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form.sede.html_name}}" placeholder="Ingrese la sede" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div align="center">
+                            <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
+<!-- ===================== Listar Archivos ====================  -->
+            <div class="tabular--wrapper">
+                <h3 class="main--title">Recientes</h3>
+                <div class="table-container">            
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Cédula</th>
+                                <th>Nacionalidad</th>
+                                <th>Sexo</th>
+                                <th>Edad</th>
+                                <th>Teléfono</th>
+                                <th>Correo</th>
+                                <th>Cargo</th>
+                                <th>Acciones</th>
+                            </tr>
+                            <tbody>
+                                {% for archivo in gestionh %}
+                                    <tr>
+                                        <td>{{ archivo.nombre }}</td>
+                                        <td>{{ archivo.apellido }}</td>
+                                        <td>{{ archivo.cedula }}</td>
+                                        <td>{{ archivo.nacionalidad }}</td>
+                                        <td>{{ archivo.sexo }}</td>
+                                        <td>{{ archivo.edad }}</td>
+                                        <td>{{ archivo.telefono }}</td>
+                                        <td>{{ archivo.correo }}</td>
+                                        <td>{{ archivo.cargo }}</td>
+                                        <td>
+                                            <a href="#" id="myBtnn3{{ archivo.id }}" style="color: black;"><ion-icon name="create-outline" style="font-size: 22px;"></ion-icon></a>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a href="#" id="myBtnn2{{ archivo.id }}" style="color: black;"><ion-icon name="close-outline" style="font-size: 22px;"></ion-icon></a>
+                                            <div id="myModall3{{ archivo.id }}" class="modal">
+                                                <div class="modal-content">
+                                                    <span class="closee3{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                    <div class="modal-header">
+                                                        <h2>Modificar Registro</h2>
+                                                    </div>
+                                                    <br>
+                                                    <form method="POST" action="gestion/update/{{ archivo.pk }}">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <div class="form-items">
+                                                                <label>Nombre</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.name.html_name }}" placeholder="Ingrese el nombre" value="{{ archivo.name }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Apellido</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.apellido.html_name }}" placeholder="Ingrese el apellido" value="{{ archivo.apellido }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Cédula</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.cedula.html_name }}" placeholder="Ingrese la cédula" value="{{ archivo.cedula }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Dirección</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.direccion.html_name }}" placeholder="Ingrese la dirección" value="{{ archivo.direccion }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Tipo de Incidente</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.tipo.html_name }}" placeholder="Ingrese el tipo" value="{{ archivo.tipo }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Descripción</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.descripcion.html_name }}" placeholder="Ingrese la descripción" value="{{ archivo.descripcion }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Fecha</label>
+                                                                <br>
+                                                                <input type="date" class="form-control" name="{{ formesp.fecha.html_name }}" placeholder="Ingrese la fecha" value="{{ archivo.fecha|date:"Y-m-d" }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Hora</label>
+                                                                <br>
+                                                                <input type="time" class="form-control" name="{{ formesp.hora.html_name }}" placeholder="Ingrese la hora" value="{{ archivo.hora }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Cargo</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.cargo.html_name }}" placeholder="Ingrese el cargo" value="{{ archivo.cargo }}" required>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div align="center">
+                                                            <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                var modall3{{ archivo.id }} = document.getElementById("myModall3{{ archivo.id }}");
+                                                var btnn3{{ archivo.id }} = document.getElementById("myBtnn3{{ archivo.id }}");
+                                                var spann3{{ archivo.id }} = document.getElementsByClassName("closee3{{ archivo.id }}")[0];
+                                                btnn3{{ archivo.id }}.onclick = function() {
+                                                    modall3{{ archivo.id }}.style.visibility = "visible";
+                                                    modall3{{ archivo.id }}.style.opacity = 1;
+                                                }
+                                            
+                                                spann3{{ archivo.id }}.onclick = function() {
+                                                    modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall3{{ archivo.id }}.style.opacity = 0;
+                                                }
+                                            
+                                                window.onclick = function(event) {
+                                                    if (event.target == modall3{{ archivo.id }}) {
+                                                        modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                        modall3{{ archivo.id }}.style.opacity = 0;
+                                                    }
+                                                }
+                                            </script>
+                                            <div id="myModall2{{ archivo.id }}" class="modal">
+                                                <div class="modal-content">
+                                                    <span class="closee2{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                    <div class="modal-header">
+                                                        <form action="gestion/delete/{{ archivo.id }}" method="POST">
+                                                            {% csrf_token %}
+                                                            <br>
+                                                            <div align="center">
+                                                                <h2>¿Estás seguro de eliminar este registro?</h2>
+                                                            </div>
+                                                            <br><br>
+                                                            <div align="center">
+                                                                <input type="submit" class="btn" value="Eliminar" style="width: 90px;">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                var modall2{{ archivo.id }} = document.getElementById("myModall2{{ archivo.id }}");
+                                                var btnn2{{ archivo.id }} = document.getElementById("myBtnn2{{ archivo.id }}");
+                                                var spann2{{ archivo.id }} = document.getElementsByClassName("closee2{{ archivo.id }}")[0];
+                                                btnn2{{ archivo.id }}.onclick = function() {
+                                                    modall2{{ archivo.id }}.style.visibility = "visible";
+                                                    modall2{{ archivo.id }}.style.opacity = 1;
+                                                }
+                        
+                                                spann2{{ archivo.id }}.onclick = function() {
+                                                    modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall2{{ archivo.id }}.style.opacity = 0;
+                                                }
+                        
+                                                window.onclick = function(event) {
+                                                    if (event.target == modall{{ archivo.id }}) {
+                                                        modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                        modall2{{ archivo.id }}.style.opacity = 0;
+                                                    }
+                                                }
+                                            </script>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+<!-- =========== Scripts =========  -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function() {
+            modal.style.visibility = "visible";
+            modal.style.opacity = 1;
+        }
+
+        span.onclick = function() {
+            modal.style.visibility = "hidden";
+            modal.style.opacity = 0;
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.visibility = "hidden";
+                modal.style.opacity = 0;
+            }
+        }
+        </script>
+    </body>
+</html>

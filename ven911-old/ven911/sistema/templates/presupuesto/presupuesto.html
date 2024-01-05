@@ -1,0 +1,379 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>Presupuesto</title>
+<!-- =============== Style ================ -->	
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+<!-- =============== Favicon ================ -->	
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+
+    <body>
+<!-- =============== Navigation ================ -->
+        <div class="sidebar">
+            <div class="logo"></div>
+                <ul class="menu">
+                    <li class="active">
+                        <a href="#">
+                                <img style="width:20px; height: 30px;" src="{% static 'img/favicon.png' %}">
+                            </span>
+                            <span class="title">S.U.C.I</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../presupuesto">
+                            <i class="fa-solid fa-money-bill"></i>
+                            <span>Presupuesto</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../presupuesto/asignacion">
+                            <i class="fa-solid fa-clone"></i>
+                            <span>Asignación</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../presupuesto/traspasos">
+                            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                            <span>Traspaso</span>
+                        </a>
+                    </li>
+                    <li class="logout.new">
+                        <a href="../modulos">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Volver</span>
+                        </a>
+                    </li>
+                    <li class="logout">
+                        <a href="{% url 'logout' %}">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="title"> Salir </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+<!-- ========================= Main ==================== -->
+            <div class="main--content">
+                <div class="header--wrapper">
+                    <div class="header--title">
+                        <h2>Presupuesto</h2>
+                    </div>
+                    <div class="user--info">
+                        <div class="searh--box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Buscar" />
+                    </div>
+                        <img src="{% static 'img/ven911.jpg' %}">
+                        <h2 class="title">V{{request.user.username}}</h2>
+                    </div>
+                </div>
+<!-- ======================= Formulario ======================  -->
+        <div align="right" style="margin-right: 100px; margin-bottom: -10px;">
+            <button id="myBtn" class="btn">Agregar</button>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" style="margin-top: -10px;">&times;</span>
+                <div class="modal-header">
+                    <h2>Agregar Nuevo Proyecto</h2>
+                </div>
+                <br>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="form-items">
+                            <label>Nombre del Proyecto</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.nombrep.html_name}}" placeholder="Ingrese el nombre">
+                        </div>
+                        <div class="form-items">
+                            <label>Fecha de Inicio</label>
+                            <br>
+                            <input type="date" class="form-control" name="{{form9.fechai.html_name}}" placeholder="Ingrese la fecha">
+                        </div>
+                        <div class="form-items">
+                            <label>Fecha de Culminación</label>
+                            <br>
+                            <input type="date" class="form-control" name="{{form9.fechac.html_name}}" placeholder="Ingrese la fecha">
+                        </div>
+                        <div class="form-items">
+                            <label>Situación Presupuestaria</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.situacionp.html_name}}" placeholder="Ingrese Situación">
+                        </div>
+                        <div class="form-items">
+                            <label>Proyecto en Plurianual</label>
+                            <br>
+                            <select name="{{form9.pplurianual.html_name}}" class="form-control">
+                                <option value="" selected> Selección</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="form-items">
+                            <label>Monto Total del Año</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.montoaño.html_name}}" placeholder="Ingrese Monto">
+                        </div>
+                        <div class="form-items">
+                            <label>Monto Total del Proyecto</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.montoproyecto.html_name}}" placeholder="Ingrese Monto">
+                        </div>
+                        <div class="form-items">
+                            <label>Responsable Gerente</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.responsableg.html_name}}" placeholder="Ingrese Nombre y Apellido">
+                        </div>
+                        <div class="form-items">
+                            <label>Responsable Técnico</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.responsablet.html_name}}" placeholder="Ingrese Nombre y Apellido">
+                        </div>
+                        <div class="form-items">
+                            <label>Responsable Registrador</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.responsabler.html_name}}" placeholder="Ingrese Nombre y Apellido">
+                        </div>
+                        <div class="form-items">
+                            <label>Responsable Administrativo</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.responsablea.html_name}}" placeholder="Ingrese Nombre y Apellido">
+                        </div>
+                        <div class="form-items">
+                            <label>Estatus del Proyecto</label>
+                            <br>
+                            <input type="text" class="form-control" name="{{form9.estatus.html_name}}" placeholder="Ingrese Estatus">
+                        </div>
+                    </div>
+                    <br>
+                    <div align="center">
+                        <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+<!-- ===================== Listar Archivos ====================  -->
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Recientes</h3>
+            <div class="table-container">            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Inicio</th>
+                            <th>Culminación</th>
+                            <th>Situación Presupuestaria</th>
+                            <th>Proyecto Plurianual</th>
+                            <th>Monto para el año</th>
+                            <th>Monto Total del Proyecto</th>
+                            <th>Gerente Responsable</th>
+                            <th>Técnico Responsable</th>
+                            <th>Registrador Responsable</th>
+                            <th>Responsable Administrativo</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
+                        </tr>
+                        <tbody>
+                            {% for archivo in presupuestoss %}
+                                <tr>
+                                    <td>{{ archivo.nombrep }}</td>
+                                    <td>{{ archivo.fechai }}</td>
+                                    <td>{{ archivo.fechac }}</td>
+                                    <td>{{ archivo.situacionp }}</td>
+                                    <td>{{ archivo.pplurianual }}</td>
+                                    <td>{{ archivo.montoaño }}</td>
+                                    <td>{{ archivo.montoproyecto }}</td>
+                                    <td>{{ archivo.responsableg }}</td>
+                                    <td>{{ archivo.responsablet }}</td>
+                                    <td>{{ archivo.responsabler }}</td>
+                                    <td>{{ archivo.responsablea }}</td>
+                                    <td>{{ archivo.estatus }}</td>
+                                    <td>
+                                        <a href="#" id="myBtnn3{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a href="#" id="myBtnn2{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-trash"></i></a>
+                                        <div id="myModall3{{ archivo.id }}" class="modal">
+                                            <div class="modal-content">
+                                                <span class="closee3{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                <div class="modal-header">
+                                                    <h2>Modificar Proyecto</h2>
+                                                </div>
+                                                <br>
+                                                <form method="POST" action="update/{{ archivo.pk }}">
+                                                    {% csrf_token %}
+                                                    <div class="form-group">
+                                                        <div class="form-items">
+                                                            <label>Nombre del Proyecto</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.nombrep.html_name }}" placeholder="Ingrese el nombre" value="{{ archivo.nombrep }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Fecha de Inicio</label>
+                                                            <br>
+                                                            <input type="date" class="form-control" name="{{ formesp.fechai.html_name }}" placeholder="Ingrese la fecha" value="{{ archivo.fechai|date:"Y-m-d" }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Fecha de Culminación</label>
+                                                            <br>
+                                                            <input type="date" class="form-control" name="{{ formesp.fechac.html_name }}" placeholder="Ingrese la cédula" value="{{ archivo.fechac|date:"Y-m-d" }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Situación Presupuestaria</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.situacionp.html_name }}" placeholder="Ingrese la situación" value="{{ archivo.situacionp }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Proyecto Plurianual</label>
+                                                            <br>
+                                                            <select name="{{formesp.pplurianual.html_name}}" class="form-control">
+                                                                <option value="{{ archivo.pplurianual }}">{{ archivo.pplurianual }}</option>
+                                                                <option value="" disabled>-----------</option>
+                                                                <option value="Si">Si</option>
+                                                                <option value="No">No</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Monto Total del Año</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.montoaño.html_name }}" placeholder="Ingrese el monto" value="{{ archivo.montoaño }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Monto Total del Proyecto</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.montoproyecto.html_name }}" placeholder="Ingrese el monto" value="{{ archivo.montoproyecto }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Gerente Responsable</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.responsableg.html_name }}" placeholder="Ingrese el gerente responsable" value="{{ archivo.responsableg }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Técnico Responsable</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.responsablet.html_name }}" placeholder="Ingrese el técnico responsable" value="{{ archivo.responsablet }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Registrador Responsable</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.responsabler.html_name }}" placeholder="Ingrese el registrador responsable" value="{{ archivo.responsabler }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Responsable Administrativo</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.responsablea.html_name }}" placeholder="Ingrese el responsable administrativo" value="{{ archivo.responsablea }}" required>
+                                                        </div>
+                                                        <div class="form-items">
+                                                            <label>Estatus</label>
+                                                            <br>
+                                                            <input type="text" class="form-control" name="{{ formesp.estatus.html_name }}" placeholder="Ingrese el estatus" value="{{ archivo.estatus }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div align="center">
+                                                        <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            var modall3{{ archivo.id }} = document.getElementById("myModall3{{ archivo.id }}");
+                                            var btnn3{{ archivo.id }} = document.getElementById("myBtnn3{{ archivo.id }}");
+                                            var spann3{{ archivo.id }} = document.getElementsByClassName("closee3{{ archivo.id }}")[0];
+                                            btnn3{{ archivo.id }}.onclick = function() {
+                                                modall3{{ archivo.id }}.style.visibility = "visible";
+                                                modall3{{ archivo.id }}.style.opacity = 1;
+                                            }
+                                        
+                                            spann3{{ archivo.id }}.onclick = function() {
+                                                modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                modall3{{ archivo.id }}.style.opacity = 0;
+                                            }
+                                        
+                                            window.onclick = function(event) {
+                                                if (event.target == modall3{{ archivo.id }}) {
+                                                    modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall3{{ archivo.id }}.style.opacity = 0;
+                                                }
+                                            }
+                                        </script>
+                                        <div id="myModall2{{ archivo.id }}" class="modal">
+                                            <div class="modal-content">
+                                                <span class="closee2{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                <div class="modal-header">
+                                                    <form action="delete/{{ archivo.id }}" method="POST">
+                                                        {% csrf_token %}
+                                                        <br>
+                                                        <div align="center">
+                                                            <h2>¿Estás seguro de eliminar este registro?</h2>
+                                                        </div>
+                                                        <br><br>
+                                                        <div align="center">
+                                                            <input type="submit" class="btn" value="Eliminar" style="width: 90px;">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            var modall2{{ archivo.id }} = document.getElementById("myModall2{{ archivo.id }}");
+                                            var btnn2{{ archivo.id }} = document.getElementById("myBtnn2{{ archivo.id }}");
+                                            var spann2{{ archivo.id }} = document.getElementsByClassName("closee2{{ archivo.id }}")[0];
+                                            btnn2{{ archivo.id }}.onclick = function() {
+                                                modall2{{ archivo.id }}.style.visibility = "visible";
+                                                modall2{{ archivo.id }}.style.opacity = 1;
+                                            }
+                    
+                                            spann2{{ archivo.id }}.onclick = function() {
+                                                modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                modall2{{ archivo.id }}.style.opacity = 0;
+                                            }
+                    
+                                            window.onclick = function(event) {
+                                                if (event.target == modall{{ archivo.id }}) {
+                                                    modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall2{{ archivo.id }}.style.opacity = 0;
+                                                }
+                                            }
+                                        </script>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </thead>
+                </table>
+            </div>
+        </div>
+<!-- =========== Scripts =========  -->
+        <script src="{% static '/js/main.js' %}"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script>
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("myBtn");
+            var span = document.getElementsByClassName("close")[0];
+            btn.onclick = function() {
+                modal.style.visibility = "visible";
+                modal.style.opacity = 1;
+            }
+
+            span.onclick = function() {
+                modal.style.visibility = "hidden";
+                modal.style.opacity = 0;
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.visibility = "hidden";
+                    modal.style.opacity = 0;
+                }
+            }
+        </script>
+    </body>
+</html>

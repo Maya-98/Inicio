@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>Planificación</title>
+<!-- =============== Style ================ -->	
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+<!-- =============== Favicon ================ -->	
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+
+    <body>
+<!-- =============== Navigation ================ -->
+        <div class="sidebar">
+            <div class="logo"></div>
+                <ul class="menu">
+                    <li class="active">
+                        <a href="#">
+                                <img style="width:20px; height: 30px;" src="{% static 'img/favicon.png' %}">
+                            </span>
+                            <span class="title">S.U.C.I</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../planificacion/">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Inicio</span>
+                        </a>
+                    <li class="logout">
+                        <a href="{% url 'logout' %}">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="title"> Salir </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+<!-- ========================= Main ==================== -->
+            <div class="main--content">
+                <div class="header--wrapper">
+                    <div class="header--title">
+                        <h2>Inicio</h2>
+                    </div>
+                    <div class="user--info">
+                        <div class="searh--box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Buscar" />
+                    </div>
+                        <img src="{% static 'img/ven911.jpg' %}">
+                        <h2 class="title">V{{request.user.username}}</h2>
+                    </div>
+                </div>
+<!-- ===================== Tarjetas ====================  -->
+<div class="card--container">
+    <h3 class="main--title">Metas</h3>
+    <div class="card--wrapper">
+    <div class="payment--card light-green ">
+    <div class="card--header">
+    <div class="amount">
+        <span class="title">1° Trimestre</span>
+    </div>
+    </div>
+        <span class="card-detail"> {{ entradap.count }}</span>
+    </div>
+<div class="payment--card light-green">
+    <div class="card--header">
+    <div class="amount">
+        <span class="title">2° Trimestre</span>
+    </div>
+    </div>
+        <span class="card-detail">{{ salidap.count }}</span>
+    </div>
+    <div class="payment--card light-green">
+        <div class="card--header">
+        <div class="amount">
+            <span class="title">3° Trimestre</span>
+        </div>
+        </div>
+            <span class="card-detail">{{ gestion.count }}</span>
+        </div> 
+    <div class="payment--card light-green">
+            <div class="card--header">
+            <div class="amount">
+                <span class="title">Anual</span>
+            </div>
+            </div>
+                <span class="card-detail">{{ gestion.count }}</span>
+            </div> 
+        </div>
+    </div>
+<!-- =========== Scripts =========  -->
+        <script src="{% static '/js/main.js' %}"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script>
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("myBtn");
+            var span = document.getElementsByClassName("close")[0];
+            btn.onclick = function() {
+                modal.style.visibility = "visible";
+                modal.style.opacity = 1;
+            }
+
+            span.onclick = function() {
+                modal.style.visibility = "hidden";
+                modal.style.opacity = 0;
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.visibility = "hidden";
+                    modal.style.opacity = 0;
+                }
+            }
+        </script>
+    </body>
+</html>

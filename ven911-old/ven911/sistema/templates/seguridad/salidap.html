@@ -1,0 +1,558 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>Salida</title>
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- =============== Favicon ================ -->
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+    <body>
+<!-- =============== Menú Principal ================ -->
+        <div class="sidebar">
+            <div class="logo"></div>
+            <ul class="menu">
+                <li class="active">
+                    <a href="#">
+                            <img style="width:20px; height: 30px;" src="{% static 'img/favicon.png' %}">
+                        </span>
+                        <span class="title">S.U.C.I</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/entradap">
+                        <i class="fa-solid fa-person-walking-arrow-right"></i>
+                        <span>Entrada</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../seguridad/salidap">
+                        </i><i class="fa-solid fa-reply-all"></i>                        
+                        <span>Salida</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/gestion">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span>Gestión</span>
+                    </a>
+                </li>
+                <li> 
+                    <a href="../seguridad/vehiculos">
+                        <i class="fa-solid fa-car-side"></i>
+                        <span>Vehículos</span>
+                    </a>
+                    <li class="logout.new">
+                        <a href="../modulos">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Volver</span>
+                        </a>
+                    </li>
+                </li>
+                <li class="logout">
+                    <a href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="title">Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+<!-- ========================= Menú de Usuario ==================== -->
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Salidas</h2>
+                </div>
+                <div class="user--info">
+                    <div class="searh--box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar" />
+                </div>
+                    <img src="{% static 'img/ven911.jpg' %}">
+                    <h2 class="title">V{{request.user.username}}</h2>
+                </div>
+            </div>    
+<!-- ======================= Botón ======================  -->
+            <div align="right" style="margin-right: 25px; margin-bottom: -10px;">
+                    <button id="myBtn" class="btn">Añadir una nueva salida</button>
+            </div>
+<!-- ======================= Formularios ======================  -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" style="margin-top: -10px;">&times;</span>
+                    <div class="modal-header">
+                        <h2>Agregar Salida Personal</h2>
+                    </div>
+                    <br>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-items">
+                                <label>Nombre</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form2.name.html_name}}" placeholder="Ingrese el nombre" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Apellido</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form2.apellido.html_name}}" placeholder="Ingrese el apellido" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Cédula</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form2.cedula.html_name}}" placeholder="Ingrese la cédula" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Teléfono</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form2.telefono.html_name}}" placeholder="Ingrese el teléfono" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Fecha</label>
+                                <br>
+                                <input type="date" class="form-control" name="{{form2.fecha.html_name}}" placeholder="Ingrese la fecha" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Hora</label>
+                                <br>
+                                <input type="time" class="form-control" name="{{form2.hora.html_name}}" placeholder="Ingrese la hora" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Dirección</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form2.direccion.html_name}}" placeholder="Ingrese la dirección" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Cargo</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form2.cargo.html_name}}" placeholder="Ingrese el cargo" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div align="center">
+                            <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+<!-- ===================== Listar Archivos ====================  -->
+            <div class="tabular--wrapper">
+                <h3 class="main--title">Salida Personal</h3>
+                <div class="table-container">            
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Cédula</th>
+                                <th>Teléfono</th>
+                                <th>Fecha</th>
+                                <th>Dirección</th>
+                                <th>Cargo</th>
+                                <th>Hora</th>
+                                <th>Acciones</th>
+                            </tr>
+                            <tbody>
+                                {% for archivo in salidapp %}
+                                    <tr>
+                                        <td>{{ archivo.name }}</td>
+                                        <td>{{ archivo.apellido }}</td>
+                                        <td>{{ archivo.cedula }}</td>
+                                        <td>{{ archivo.telefono }}</td>
+                                        <td>{{ archivo.fecha }}</td>
+                                        <td>{{ archivo.direccion }}</td>
+                                        <td>{{ archivo.cargo }}</td>
+                                        <td>{{ archivo.hora }}</td>
+                                        <td>
+                                            <a href="#" id="myBtnn3{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a href="#" id="myBtnn2{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-trash"></i></a>
+                                            <div id="myModall3{{ archivo.id }}" class="modal">
+                                                <div class="modal-content">
+                                                    <span class="closee3{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                    <div class="modal-header">
+                                                        <h2>Modificar Salida de Personal</h2>
+                                                    </div>
+                                                    <br>
+                                                    <form method="POST" action="salidap/update/{{ archivo.pk }}">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <div class="form-items">
+                                                                <label>Nombre</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.name.html_name }}" placeholder="Ingrese el nombre" value="{{ archivo.name }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Apellido</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.apellido.html_name }}" placeholder="Ingrese el apellido" value="{{ archivo.apellido }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Cédula</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.cedula.html_name }}" placeholder="Ingrese la cédula" value="{{ archivo.cedula }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Teléfono</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.telefono.html_name }}" placeholder="Ingrese el teléfono" value="{{ archivo.telefono }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Fecha</label>
+                                                                <br>
+                                                                <input type="date" class="form-control" name="{{ formesp.fecha.html_name }}" placeholder="Ingrese la fecha" value="{{ archivo.fecha|date:"Y-m-d" }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Hora</label>
+                                                                <br>
+                                                                <input type="time" class="form-control" name="{{ formesp.hora.html_name }}" placeholder="Ingrese la hora" value="{{ archivo.hora }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Dirección</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.direccion.html_name }}" placeholder="Ingrese la dirección" value="{{ archivo.direccion }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Cargo</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.cargo.html_name }}" placeholder="Ingrese el cargo" value="{{ archivo.cargo }}" required>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div align="center">
+                                                            <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                var modall3{{ archivo.id }} = document.getElementById("myModall3{{ archivo.id }}");
+                                                var btnn3{{ archivo.id }} = document.getElementById("myBtnn3{{ archivo.id }}");
+                                                var spann3{{ archivo.id }} = document.getElementsByClassName("closee3{{ archivo.id }}")[0];
+                                                btnn3{{ archivo.id }}.onclick = function() {
+                                                    modall3{{ archivo.id }}.style.visibility = "visible";
+                                                    modall3{{ archivo.id }}.style.opacity = 1;
+                                                }
+                                            
+                                                spann3{{ archivo.id }}.onclick = function() {
+                                                    modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall3{{ archivo.id }}.style.opacity = 0;
+                                                }
+                                            
+                                                window.onclick = function(event) {
+                                                    if (event.target == modall3{{ archivo.id }}) {
+                                                        modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                        modall3{{ archivo.id }}.style.opacity = 0;
+                                                    }
+                                                }
+                                            </script>
+                                            <div id="myModall2{{ archivo.id }}" class="modal">
+                                                <div class="modal-content">
+                                                    <span class="closee2{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                    <div class="modal-header">
+                                                        <form action="entradap/delete/{{ archivo.id }}" method="POST">
+                                                            {% csrf_token %}
+                                                            <br>
+                                                            <div align="center">
+                                                                <h2>¿Estás seguro de eliminar este registro?</h2>
+                                                            </div>
+                                                            <br><br>
+                                                            <div align="center">
+                                                                <input type="submit" class="btn" value="Eliminar" style="width: 90px;">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                var modall2{{ archivo.id }} = document.getElementById("myModall2{{ archivo.id }}");
+                                                var btnn2{{ archivo.id }} = document.getElementById("myBtnn2{{ archivo.id }}");
+                                                var spann2{{ archivo.id }} = document.getElementsByClassName("closee2{{ archivo.id }}")[0];
+                                                btnn2{{ archivo.id }}.onclick = function() {
+                                                    modall2{{ archivo.id }}.style.visibility = "visible";
+                                                    modall2{{ archivo.id }}.style.opacity = 1;
+                                                }
+                        
+                                                spann2{{ archivo.id }}.onclick = function() {
+                                                    modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall2{{ archivo.id }}.style.opacity = 0;
+                                                }
+                        
+                                                window.onclick = function(event) {
+                                                    if (event.target == modall{{ archivo.id }}) {
+                                                        modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                        modall2{{ archivo.id }}.style.opacity = 0;
+                                                    }
+                                                }
+                                            </script>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <br>
+<!-- ======================= Botones ======================  -->
+<div align="right" style="margin-right: 25px; margin-bottom: -10px;">
+    <button id="myBtn" class="btn">Añadir una nueva salida</button>
+</div>
+<!-- ======================= Formularios ======================  -->
+<div id="myModal" class="modal">
+<div class="modal-content">
+    <span class="close" style="margin-top: -10px;">&times;</span>
+    <div class="modal-header">
+        <h2>Agregar Salida Personal</h2>
+    </div>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="form-items">
+                <label>Nombre</label>
+                <br>
+                <input type="text" class="form-control" name="{{form2.name.html_name}}" placeholder="Ingrese el nombre" required>
+            </div>
+            <div class="form-items">
+                <label>Apellido</label>
+                <br>
+                <input type="text" class="form-control" name="{{form2.apellido.html_name}}" placeholder="Ingrese el apellido" required>
+            </div>
+            <div class="form-items">
+                <label>Cédula</label>
+                <br>
+                <input type="text" class="form-control" name="{{form2.cedula.html_name}}" placeholder="Ingrese la cédula" required>
+            </div>
+            <div class="form-items">
+                <label>Teléfono</label>
+                <br>
+                <input type="text" class="form-control" name="{{form2.telefono.html_name}}" placeholder="Ingrese el teléfono" required>
+            </div>
+            <div class="form-items">
+                <label>Fecha</label>
+                <br>
+                <input type="date" class="form-control" name="{{form2.fecha.html_name}}" placeholder="Ingrese la fecha" required>
+            </div>
+            <div class="form-items">
+                <label>Hora</label>
+                <br>
+                <input type="time" class="form-control" name="{{form2.hora.html_name}}" placeholder="Ingrese la hora" required>
+            </div>
+            <div class="form-items">
+                <label>Dirección</label>
+                <br>
+                <input type="text" class="form-control" name="{{form2.direccion.html_name}}" placeholder="Ingrese la dirección" required>
+            </div>
+            <div class="form-items">
+                <label>Cargo</label>
+                <br>
+                <input type="text" class="form-control" name="{{form2.cargo.html_name}}" placeholder="Ingrese el cargo" required>
+            </div>
+        </div>
+        <br>
+        <div align="center">
+            <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+        </div>
+    </form>
+</div>
+</div>
+<!-- ===================== Listar Archivos ====================  -->
+<div class="tabular--wrapper">
+<h3 class="main--title">Salida Visitante</h3>
+<div class="table-container">            
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cédula</th>
+                <th>Teléfono</th>
+                <th>Fecha</th>
+                <th>Dirección</th>
+                <th>Cargo</th>
+                <th>Hora</th>
+                <th>Acciones</th>
+            </tr>
+            <tbody>
+                {% for archivo in salidapp %}
+                    <tr>
+                        <td>{{ archivo.name }}</td>
+                        <td>{{ archivo.apellido }}</td>
+                        <td>{{ archivo.cedula }}</td>
+                        <td>{{ archivo.telefono }}</td>
+                        <td>{{ archivo.fecha }}</td>
+                        <td>{{ archivo.direccion }}</td>
+                        <td>{{ archivo.cargo }}</td>
+                        <td>{{ archivo.hora }}</td>
+                        <td>
+                            <a href="#" id="myBtnn3{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="#" id="myBtnn2{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-trash"></i></a>
+                            <div id="myModall3{{ archivo.id }}" class="modal">
+                                <div class="modal-content">
+                                    <span class="closee3{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                    <div class="modal-header">
+                                        <h2>Modificar Salida de Personal</h2>
+                                    </div>
+                                    <br>
+                                    <form method="POST" action="salidap/update/{{ archivo.pk }}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="form-items">
+                                                <label>Nombre</label>
+                                                <br>
+                                                <input type="text" class="form-control" name="{{ formesp.name.html_name }}" placeholder="Ingrese el nombre" value="{{ archivo.name }}" required>
+                                            </div>
+                                            <div class="form-items">
+                                                <label>Apellido</label>
+                                                <br>
+                                                <input type="text" class="form-control" name="{{ formesp.apellido.html_name }}" placeholder="Ingrese el apellido" value="{{ archivo.apellido }}" required>
+                                            </div>
+                                            <div class="form-items">
+                                                <label>Cédula</label>
+                                                <br>
+                                                <input type="text" class="form-control" name="{{ formesp.cedula.html_name }}" placeholder="Ingrese la cédula" value="{{ archivo.cedula }}" required>
+                                            </div>
+                                            <div class="form-items">
+                                                <label>Teléfono</label>
+                                                <br>
+                                                <input type="text" class="form-control" name="{{ formesp.telefono.html_name }}" placeholder="Ingrese el teléfono" value="{{ archivo.telefono }}" required>
+                                            </div>
+                                            <div class="form-items">
+                                                <label>Fecha</label>
+                                                <br>
+                                                <input type="date" class="form-control" name="{{ formesp.fecha.html_name }}" placeholder="Ingrese la fecha" value="{{ archivo.fecha|date:"Y-m-d" }}" required>
+                                            </div>
+                                            <div class="form-items">
+                                                <label>Hora</label>
+                                                <br>
+                                                <input type="time" class="form-control" name="{{ formesp.hora.html_name }}" placeholder="Ingrese la hora" value="{{ archivo.hora }}" required>
+                                            </div>
+                                            <div class="form-items">
+                                                <label>Dirección</label>
+                                                <br>
+                                                <input type="text" class="form-control" name="{{ formesp.direccion.html_name }}" placeholder="Ingrese la dirección" value="{{ archivo.direccion }}" required>
+                                            </div>
+                                            <div class="form-items">
+                                                <label>Cargo</label>
+                                                <br>
+                                                <input type="text" class="form-control" name="{{ formesp.cargo.html_name }}" placeholder="Ingrese el cargo" value="{{ archivo.cargo }}" required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div align="center">
+                                            <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <script>
+                                var modall3{{ archivo.id }} = document.getElementById("myModall3{{ archivo.id }}");
+                                var btnn3{{ archivo.id }} = document.getElementById("myBtnn3{{ archivo.id }}");
+                                var spann3{{ archivo.id }} = document.getElementsByClassName("closee3{{ archivo.id }}")[0];
+                                btnn3{{ archivo.id }}.onclick = function() {
+                                    modall3{{ archivo.id }}.style.visibility = "visible";
+                                    modall3{{ archivo.id }}.style.opacity = 1;
+                                }
+                            
+                                spann3{{ archivo.id }}.onclick = function() {
+                                    modall3{{ archivo.id }}.style.visibility = "hidden";
+                                    modall3{{ archivo.id }}.style.opacity = 0;
+                                }
+                            
+                                window.onclick = function(event) {
+                                    if (event.target == modall3{{ archivo.id }}) {
+                                        modall3{{ archivo.id }}.style.visibility = "hidden";
+                                        modall3{{ archivo.id }}.style.opacity = 0;
+                                    }
+                                }
+                            </script>
+                            <div id="myModall2{{ archivo.id }}" class="modal">
+                                <div class="modal-content">
+                                    <span class="closee2{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                    <div class="modal-header">
+                                        <form action="entradap/delete/{{ archivo.id }}" method="POST">
+                                            {% csrf_token %}
+                                            <br>
+                                            <div align="center">
+                                                <h2>¿Estás seguro de eliminar este registro?</h2>
+                                            </div>
+                                            <br><br>
+                                            <div align="center">
+                                                <input type="submit" class="btn" value="Eliminar" style="width: 90px;">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <script>
+                                var modall2{{ archivo.id }} = document.getElementById("myModall2{{ archivo.id }}");
+                                var btnn2{{ archivo.id }} = document.getElementById("myBtnn2{{ archivo.id }}");
+                                var spann2{{ archivo.id }} = document.getElementsByClassName("closee2{{ archivo.id }}")[0];
+                                btnn2{{ archivo.id }}.onclick = function() {
+                                    modall2{{ archivo.id }}.style.visibility = "visible";
+                                    modall2{{ archivo.id }}.style.opacity = 1;
+                                }
+        
+                                spann2{{ archivo.id }}.onclick = function() {
+                                    modall2{{ archivo.id }}.style.visibility = "hidden";
+                                    modall2{{ archivo.id }}.style.opacity = 0;
+                                }
+        
+                                window.onclick = function(event) {
+                                    if (event.target == modall{{ archivo.id }}) {
+                                        modall2{{ archivo.id }}.style.visibility = "hidden";
+                                        modall2{{ archivo.id }}.style.opacity = 0;
+                                    }
+                                }
+                            </script>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </thead>
+    </table>
+    </div>
+</div>
+<br>
+<!-- =========== Scripts =========  -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function() {
+            modal.style.visibility = "visible";
+            modal.style.opacity = 1;
+        }
+
+        span.onclick = function() {
+            modal.style.visibility = "hidden";
+            modal.style.opacity = 0;
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.visibility = "hidden";
+                modal.style.opacity = 0;
+            }
+        }
+        </script>
+    </body>
+</html>

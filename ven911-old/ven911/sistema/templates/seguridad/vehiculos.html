@@ -1,0 +1,357 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<title>Vehículos</title>
+  		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  		<link rel="icon" type="image/x-icon" href="{% static '/img/favicon.icon' %}">
+	</head>
+    <body>
+<!-- =============== Navigation ================ -->
+        <div class="sidebar">
+            <div class="logo"></div>
+            <ul class="menu">
+                <li class="active">
+                    <a href="#">
+                            <img style="width:20px; height: 30px;" src="{% static 'img/favicon.png' %}">
+                        </span>
+                        <span class="title">S.U.C.I</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/entradap">
+                        <i class="fa-solid fa-person-walking-arrow-right"></i>
+                        <span>Entrada</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../seguridad/salidap">
+                        </i><i class="fa-solid fa-reply-all"></i>                        
+                        <span>Salida</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../seguridad/gestion">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span>Gestión</span>
+                    </a>
+                </li>
+                <li> 
+                    <a href="../seguridad/vehiculos">
+                        <i class="fa-solid fa-car-side"></i>
+                        <span>Vehículos</span>
+                    </a>
+                    <li class="logout.new">
+                        <a href="../modulos">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Volver</span>
+                        </a>
+                    </li>
+                </li>
+                <li class="logout">
+                    <a href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="title">Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+<!-- ========================= Main ==================== -->
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2>Vehículos</h2>
+                </div>
+                <div class="user--info">
+                    <div class="searh--box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar" />
+                </div>
+                    <img src="{% static 'img/ven911.jpg' %}">
+                    <h2 class="title">V{{request.user.username}}</h2>
+                </div>
+            </div>    
+<!-- ======================= Botones ======================  -->
+            <div align="right" style="margin-right: 25px; margin-bottom: -20px;">
+                <button id="myBtn" class="btn">Agregar</button>
+                <i class="fa-solid fa-file"></i>
+            </div>
+            <br>
+            <div align="right" style="margin-right: 20px; margin-bottom: -30px;">
+                <button id="myBtn" class="btn">Generar</button>
+                <i class="fa-solid fa-file-pdf"></i>
+            </div>
+<!-- ======================= Formulario ======================  -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" style="margin-top: -10px;">&times;</span>
+                    <div class="modal-header">
+                        <h2>Agregar Vehículo</h2>
+                    </div>
+                    <br>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-items">
+                                <label>Nombre</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form8.nombre.html_name}}" placeholder="Ingrese el nombre" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Apellido</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form8.apellido.html_name}}" placeholder="Ingrese el apellido" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Cédula</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form8.cedula.html_name}}" placeholder="Ingrese la cédula" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Tipo</label>
+                                <br>
+                                <select name="{{form8.tipo.html_name}}" id="" class="form-control">
+                                    <option value="Fijo">Fijo</option>
+                                    <option value="Visitante">Visitante</option>
+                                </select>
+                            </div>
+                            <div class="form-items">
+                                <label>Transporte</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form8.transporte.html_name}}" placeholder="Ingrese el tipo de transporte" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Modelo</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form8.modelo.html_name}}" placeholder="Ingrese el modelo" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Placa</label>
+                                <br>
+                                <input type="text" class="form-control" name="{{form8.placa.html_name}}" placeholder="Ingrese la placa" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Fecha</label>
+                                <br>
+                                <input type="date" class="form-control" name="{{form8.fecha.html_name}}" placeholder="Ingrese la fecha" required>
+                            </div>
+                            <div class="form-items">
+                                <label>Hora</label>
+                                <br>
+                                <input type="time" class="form-control" name="{{form8.hora.html_name}}" placeholder="Ingrese la hora" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div align="center">
+                            <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
+<!-- ===================== Listar Archivos ====================  -->
+            <div class="tabular--wrapper">
+                <h3 class="main--title">Añadir Vehículos<i class="fa-solid fa-file"></i></h3>
+                <div class="table-container">            
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Cédula</th>
+                                <th>Tipo</th>
+                                <th>Transporte</th>
+                                <th>Modelo</th>
+                                <th>Placa</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Acciones</th>
+                            </tr>
+                            <tbody>
+                                {% for archivo in vehiculoss %}
+                                    <tr>
+                                        <td>{{ archivo.nombre }}</td>
+                                        <td>{{ archivo.apellido }}</td>
+                                        <td>{{ archivo.cedula }}</td>
+                                        <td>{{ archivo.tipo }}</td>
+                                        <td>{{ archivo.transporte }}</td>
+                                        <td>{{ archivo.modelo }}</td>
+                                        <td>{{ archivo.placa }}</td>
+                                        <td>{{ archivo.fecha }}</td>
+                                        <td>{{ archivo.hora }}</td>
+                                        <td>
+                                            <a href="#" id="myBtnn3{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a href="#" id="myBtnn2{{ archivo.id }}" style="color: black;"><i class="fa-solid fa-trash"></i></a>
+                                            <div id="myModall3{{ archivo.id }}" class="modal">
+                                                <div class="modal-content">
+                                                    <span class="closee3{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                    <div class="modal-header">
+                                                        <h2>Modificar Incidente</h2>
+                                                    </div>
+                                                    <br>
+                                                    <form method="POST" action="vehiculos/update/{{ archivo.pk }}">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <div class="form-items">
+                                                                <label>Nombre</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.nombre.html_name }}" placeholder="Ingrese el nombre" value="{{ archivo.nombre }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Apellido</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.apellido.html_name }}" placeholder="Ingrese el apellido" value="{{ archivo.apellido }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Cédula</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.cedula.html_name }}" placeholder="Ingrese la cédula" value="{{ archivo.cedula }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label> Tipo</label>
+                                                                <br>
+                                                                <select name="{{form8.tipo.html_name}}" id="" class="form-control">
+                                                                    <option value="Fijo">Fijo</option>
+                                                                    <option value="Visitante">Visitante</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Transporte</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.transporte.html_name }}" placeholder="Ingrese el transporte" value="{{ archivo.transporte }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Modelo</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.modelo.html_name }}" placeholder="Ingrese el modelo" value="{{ archivo.modelo }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Placa</label>
+                                                                <br>
+                                                                <input type="text" class="form-control" name="{{ formesp.placa.html_name }}" placeholder="Ingrese la placa" value="{{ archivo.placa }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Fecha</label>
+                                                                <br>
+                                                                <input type="date" class="form-control" name="{{ formesp.fecha.html_name }}" placeholder="Ingrese la fecha" value="{{ archivo.fecha|date:"Y-m-d" }}" required>
+                                                            </div>
+                                                            <div class="form-items">
+                                                                <label>Hora</label>
+                                                                <br>
+                                                                <input type="time" class="form-control" name="{{ formesp.hora.html_name }}" placeholder="Ingrese la hora" value="{{ archivo.hora }}" required>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div align="center">
+                                                            <input type="submit" class="btn" value="Enviar" style="width: 90px;">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                var modall3{{ archivo.id }} = document.getElementById("myModall3{{ archivo.id }}");
+                                                var btnn3{{ archivo.id }} = document.getElementById("myBtnn3{{ archivo.id }}");
+                                                var spann3{{ archivo.id }} = document.getElementsByClassName("closee3{{ archivo.id }}")[0];
+                                                btnn3{{ archivo.id }}.onclick = function() {
+                                                    modall3{{ archivo.id }}.style.visibility = "visible";
+                                                    modall3{{ archivo.id }}.style.opacity = 1;
+                                                }
+                                            
+                                                spann3{{ archivo.id }}.onclick = function() {
+                                                    modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall3{{ archivo.id }}.style.opacity = 0;
+                                                }
+                                            
+                                                window.onclick = function(event) {
+                                                    if (event.target == modall3{{ archivo.id }}) {
+                                                        modall3{{ archivo.id }}.style.visibility = "hidden";
+                                                        modall3{{ archivo.id }}.style.opacity = 0;
+                                                    }
+                                                }
+                                            </script>
+                                            <div id="myModall2{{ archivo.id }}" class="modal">
+                                                <div class="modal-content">
+                                                    <span class="closee2{{ archivo.id }} close" style="margin-top: -10px;">&times;</span>
+                                                    <div class="modal-header">
+                                                        <form action="vehiculos/delete/{{ archivo.id }}" method="POST">
+                                                            {% csrf_token %}
+                                                            <br>
+                                                            <div align="center">
+                                                                <h2>¿Estás seguro de eliminar este registro?</h2>
+                                                            </div>
+                                                            <br><br>
+                                                            <div align="center">
+                                                                <input type="submit" class="btn" value="Eliminar" style="width: 90px;">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                var modall2{{ archivo.id }} = document.getElementById("myModall2{{ archivo.id }}");
+                                                var btnn2{{ archivo.id }} = document.getElementById("myBtnn2{{ archivo.id }}");
+                                                var spann2{{ archivo.id }} = document.getElementsByClassName("closee2{{ archivo.id }}")[0];
+                                                btnn2{{ archivo.id }}.onclick = function() {
+                                                    modall2{{ archivo.id }}.style.visibility = "visible";
+                                                    modall2{{ archivo.id }}.style.opacity = 1;
+                                                }
+                        
+                                                spann2{{ archivo.id }}.onclick = function() {
+                                                    modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                    modall2{{ archivo.id }}.style.opacity = 0;
+                                                }
+                        
+                                                window.onclick = function(event) {
+                                                    if (event.target == modall{{ archivo.id }}) {
+                                                        modall2{{ archivo.id }}.style.visibility = "hidden";
+                                                        modall2{{ archivo.id }}.style.opacity = 0;
+                                                    }
+                                                }
+                                            </script>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+<!-- =========== Scripts =========  -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function() {
+            modal.style.visibility = "visible";
+            modal.style.opacity = 1;
+        }
+
+        span.onclick = function() {
+            modal.style.visibility = "hidden";
+            modal.style.opacity = 0;
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.visibility = "hidden";
+                modal.style.opacity = 0;
+            }
+        }
+        </script>
+    </body>
+</html>
